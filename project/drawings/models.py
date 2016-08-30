@@ -2,7 +2,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.urls import reverse
-from model_utils.models import TimeStampedModel, StatusModel
+from model_utils.models import TimeStampedModel
+
 
 class Notebook(TimeStampedModel, models.Model):
 
@@ -38,6 +39,9 @@ class Notebook(TimeStampedModel, models.Model):
         help_text="The date (month, year) when the notebook was created. Both month and year required.",
         verbose_name="Notebook creation month and year"
     )
+
+    def __str__(self):
+        return self.title
 
 
 class Drawing(TimeStampedModel, models.Model):
@@ -102,6 +106,10 @@ class Group(models.Model):
         blank=True,
     )
 
+    def __str__(self):
+        return self.name
+
+
 class GroupDrawing(models.Model):
     """Association between drawing and groups."""
 
@@ -110,7 +118,7 @@ class GroupDrawing(models.Model):
     drawing = models.ForeignKey(Drawing)
 
 
-class ArtistInfo(models.Model):
+class ArtistInfo(TimeStampedModel, models.Model):
     """Artistic bio and mission statement for About The Artist page."""
 
     description = models.TextField(
@@ -123,10 +131,3 @@ class ArtistInfo(models.Model):
         help_text="Optional information to contact the artist.",
         max_length=200,
     )
-
-
-
-
-
-
-
