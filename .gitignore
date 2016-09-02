@@ -1,3 +1,5 @@
 env/
+secrets.sh
 /.idea/
 *.pyc
+.boto
