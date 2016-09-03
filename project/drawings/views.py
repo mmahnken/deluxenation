@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 
 # Create your views here.
+from forms import DrawingFormSet, NotebookForm
 
 class HomepageView(generic.TemplateView):
 
@@ -88,4 +89,32 @@ class HomepageView(generic.TemplateView):
 
 
         return {'test': 'this is me testing'}
+
+
+class NotebookManagementDetailView(generic.CreateView):
+
+    model = Notebook
+    template_name = "drawings/notebook_create_form.html"
+    form_class = NotebookForm
+    headline = "Add Notebook"
+    success_url = '.'
+    # formset =
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        drawing_formset = DrawingFormSet()
+
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  drawing_formset=drawing_formset))
+
+
 

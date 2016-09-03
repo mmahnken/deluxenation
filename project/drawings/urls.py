@@ -11,16 +11,25 @@ from . import views
 
 urlpatterns = [
 
-    #####################################################
-    # Cohorts
-    #
-    # /             dashboard of current cohort
-    # /cohort/f12   dashboard of named cohort
-
 
 url(r'^$',
     views.HomepageView.as_view(),
     name='homepage'),
 
-]
 
+
+#########################
+# Notebook management
+
+#########################
+
+# url(r'^manage/notebooks/all/$',
+#     views.NotebookManagementListView.as_view(),
+#     name='notebook_management_list'),
+#
+# url(r'^manage/notebooks/%s/$' % PK,
+#     views.NotebookManagementDetailView.as_view(),
+#     name='notebook_management_detail'),
+
+
+]

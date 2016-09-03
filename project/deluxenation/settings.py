@@ -25,7 +25,7 @@ GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-&-4-z-)crtk@b^854f=g)#zq=i5o!+xka54$=s*+juz56r$tp'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
