@@ -4,7 +4,7 @@ from .models import Notebook, Drawing, GroupDrawing, Group, ArtistInfo
 
 
 class GroupDrawingInline(admin.TabularInline):
-    """Inline of allergies on student admin."""
+    """Inline of groups on drawing admin."""
 
     model = GroupDrawing
 

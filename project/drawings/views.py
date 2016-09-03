@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
+from .models import Notebook
 
 # Create your views here.
 
@@ -27,18 +28,17 @@ class HomepageView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         """Add data."""
 
-        # max_num = 3
+        max_num = 5
         #
-        # context = super(CohortView, self).get_context_data()
+        context = super(HomepageView, self).get_context_data()
         #
-        # context['lecturesessions'] = \
-        #     (LectureSession
-        #      .published
-        #      .filter(cohort=self.object, end_at__gt=now())
-        #      .select_related('lecture')
-        #      .order_by('start_at')
-        #      )[:max_num]
-        #
+        context['notebooks'] = \
+            (Notebook
+             .objects
+             # .select_related('drawing')
+             .order_by('-drawn_at')
+             )[:max_num]
+
         # # We want enough labsessions for 3 exercise sessions to show up---so we'll ask for
         # # 3x as many lab sessions as we need here, and we filter this down to the 3 actual
         # # exercisesessions in the template using |slice
@@ -87,5 +87,5 @@ class HomepageView(generic.TemplateView):
 
 
 
-        return {'test': 'this is me testing'}
+        return context
 

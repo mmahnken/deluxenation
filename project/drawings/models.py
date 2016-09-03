@@ -71,7 +71,7 @@ class Drawing(TimeStampedModel, models.Model):
         help_text="If true, this is a favorite drawing in a notebook.",
     )
 
-    image = models.ImageField(  # TODO-- is there an s3 type?
+    image = models.ImageField(
         blank=False,
         upload_to="drawings",
         help_text="High-quality JPEG of drawing",
