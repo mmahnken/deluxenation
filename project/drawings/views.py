@@ -89,3 +89,9 @@ class HomepageView(generic.TemplateView):
 
         return context
 
+
+class NotebookView(generic.DetailView):
+    """Notebook plus all drawings of notebook"""
+
+    template_name = "drawings/notebook_detail.html"
+    queryset = Notebook.objects

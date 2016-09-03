@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ notebook.title }}{% endblock %}
+{% block extra_head %}
+    <style>
+        .drawing{
+            width: 6em;
+        }
+    </style>
+{% endblock %}
+
+{% block bootstrap3_content %}
+
+    <div class="container-fluid">
+        <a href="{% url 'homepage' %}"><h4> < Back</h4></a>
+        <h2>{{ notebook.title }}</h2>
+
+        <div class="row">
+        {% for drawing in notebook.drawing_set.all %}
+
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="{{ drawing.image.url }}" alt="{{ drawing.title }}">
+
+              <div class="caption">
+                  <h3>{{ drawing.title }}</h3>
+              </div>
+            </div>
+          </div>
+
+            {% if forloop.counter|divisibleby:3 %}
+                </div>
+                <div class="row">
+            {% endif %}
+
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

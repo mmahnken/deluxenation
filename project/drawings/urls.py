@@ -22,9 +22,9 @@ url(r'^$',
     views.HomepageView.as_view(),
     name='homepage'),
 
-# url(r'^notebooks/%s/$' % PK,
-#     views.NotebookView.as_view(),
-#     name='notebook_detail'),
+url(r'^notebooks/%s/$' % PK,
+    views.NotebookView.as_view(),
+    name='notebook_detail'),
 
 ]
 
