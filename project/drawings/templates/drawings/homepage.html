@@ -29,8 +29,9 @@
 
           <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
+
                 <a href="{% url 'notebook_detail' pk=nb.id %}">
-                    <img src="{{ nb.front_cover.url }}" alt="...">
+                    <img src="{{ nb.random_favorite.image.url }}" alt="An Image from {{ nb.title }}">
                 </a>
               <div class="caption">
                 <a href="{% url 'notebook_detail' pk=nb.id %}">

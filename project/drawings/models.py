@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from model_utils.models import TimeStampedModel
 
+import random
+
 
 class Notebook(TimeStampedModel, models.Model):
 
@@ -42,6 +44,12 @@ class Notebook(TimeStampedModel, models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def random_favorite(self):
+        favorites = [d for d in self.drawing_set.all() if d.favorite]
+        return random.choice(favorites)
+
 
 
 class Drawing(TimeStampedModel, models.Model):
