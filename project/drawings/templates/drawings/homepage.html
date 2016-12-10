@@ -9,6 +9,10 @@
     .nb {
         width: 6em;
     }
+
+    .details {
+        color: lightgray;
+    }
     </style>
 {% endblock %}
 
@@ -18,12 +22,8 @@
     {% load static from staticfiles %}
 
     <div class="container">
-        <div class="col-xs-12">
-            <h1>Welcome to Deluxe Nation</h1>
-        </div>
-
-    </div>
-    <div class="container-fluid">
+        <div class="row" >
+            <div class="container-fluid">
         <div class="row">
         {% for nb in notebooks %}
 
@@ -49,6 +49,10 @@
         {% endfor %}
         </div>
     </div>
+
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block bootstrap3_extra_script %}
