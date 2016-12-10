@@ -1,4 +1,5 @@
 from django.contrib import admin
+import bulk_admin
 
 from .models import Notebook, Drawing, GroupDrawing, Group, ArtistInfo
 
@@ -76,7 +77,7 @@ class NotebookAdmin(admin.ModelAdmin):
 
 
 @admin.register(Drawing)
-class DrawingAdmin(admin.ModelAdmin):
+class DrawingAdmin(bulk_admin.BulkModelAdmin):
     """Drawing admin form."""
 
     fieldsets = [
@@ -145,7 +146,6 @@ class ArtistInfoAdmin(admin.ModelAdmin):
             readonly.append('id')
 
         return readonly
-
 
 
 

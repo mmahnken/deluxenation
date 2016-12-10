@@ -25,7 +25,7 @@ GIT_DIR = os.path.abspath(PROJECT_DIR + "/..")
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'lemonlacroix')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'deluxenation',
     'drawings',
     'storages',
+    'bulk_admin',
 ]
 
 MIDDLEWARE = [
