@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views import generic
+
 from .models import Notebook, Drawing
 from .forms import NotebookCreateForm
+
 
 # Create your views here.
 

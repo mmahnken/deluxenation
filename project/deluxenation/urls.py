@@ -13,18 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
 
 import drawings.urls
 import drawings.views
 
 
 urlpatterns = [
-    url(r'^admin/nb/$', drawings.views.NotebookCreateView.as_view(template_name='drawings/notebook_create.html')),
-
+    url(r'^admin/nb/$', staff_member_required(drawings.views.NotebookCreateView.as_view(template_name='drawings/notebook_create.html'))),
     url(r'^admin/', admin.site.urls),
-
     url(r'^', include(drawings.urls)),
 
 ]
