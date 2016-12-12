@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block title %}Upload Notebook{% endblock %}
+{% block extra_head %}
+    <style>
+        .drawing{
+            width: 6em;
+        }
+    </style>
+{% endblock %}
+
+{% block bootstrap3_content %}
+    <div class="container">
+    <h1>Upload a New Notebook</h1>
+           <form role="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+               <label>Choose Folder</label><input type="file" webkitdirectory mozdirectory name="drawings" />
+            <div id="imageContainer"></div>
+            {% buttons submit="Upload notebook" %}{% endbuttons %}
+        </form>
+    </div>
+{% endblock %}
+
+{% block bootstrap3_extra_script %}
+    <script src="{% static 'js/directoryUpload.js' %}"></script>
+{% endblock %}

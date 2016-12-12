@@ -4,6 +4,7 @@ import bulk_admin
 from .models import Notebook, Drawing, GroupDrawing, Group, ArtistInfo
 
 
+
 class GroupDrawingInline(admin.TabularInline):
     """Inline of groups on drawing admin."""
 
@@ -146,6 +147,8 @@ class ArtistInfoAdmin(admin.ModelAdmin):
             readonly.append('id')
 
         return readonly
+
+
 
 
 

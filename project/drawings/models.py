@@ -48,7 +48,15 @@ class Notebook(TimeStampedModel, models.Model):
     @property
     def random_favorite(self):
         favorites = [d for d in self.drawing_set.all() if d.favorite]
-        return random.choice(favorites)
+        if not favorites:
+            return None
+        else:
+            return random.choice(favorites)
+
+    def get_absolute_url(self):
+        """Path to notebook detail"""
+
+        return reverse('notebook_detail', kwargs={'pk': self.id})
 
 
 

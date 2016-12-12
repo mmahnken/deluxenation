@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load bootstrap3 %}
 
 {% block title %}Deluxe Nation{% endblock %}
 
@@ -29,10 +28,16 @@
 
           <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-
+                {% if nb.random_favorite %}
                 <a href="{% url 'notebook_detail' pk=nb.id %}">
                     <img src="{{ nb.random_favorite.image.url }}" alt="An Image from {{ nb.title }}">
                 </a>
+                {% elif nb.drawing_set.all %}
+
+                    <a href="{% url 'notebook_detail' pk=nb.id %}">
+                    <img src="{{ nb.drawing_set.first.image.url }}" alt="An Image from {{ nb.title }}">
+                </a>
+                {% endif %}
               <div class="caption">
                 <a href="{% url 'notebook_detail' pk=nb.id %}">
                     <h3>{{ nb.title }}</h3>

@@ -17,10 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 import drawings.urls
-
+import drawings.views
 
 
 urlpatterns = [
+    url(r'^admin/nb/$', drawings.views.NotebookCreateView.as_view(template_name='drawings/notebook_create.html')),
+
     url(r'^admin/', admin.site.urls),
 
     url(r'^', include(drawings.urls)),
