@@ -40,7 +40,6 @@ class NotebookCreateView(generic.CreateView):
 
     model = Notebook
     form_class = NotebookCreateForm
-    # fields = ['id', 'title', 'description', 'front_cover', 'back_cover', 'drawn_at']
     template_name = 'drawings/notebook_create.html'
     headline = "Upload a Notebook"
 
@@ -53,9 +52,9 @@ class NotebookCreateView(generic.CreateView):
         if drawings:
             for drawing in drawings:
                 name = drawing.name.split('.')[0]
-                first_four_letters = "".join(drawing.name.split('.'))
-                first_four_letters = "".join(first_four_letters.split())[:3]
-                Drawing.objects.create(notebook=self.object, title=name, image=drawing, id=first_four_letters)
+                first_ten_letters = "".join(drawing.name.split('.'))
+                first_ten_letters = "".join(first_ten_letters.split())[:9]
+                Drawing.objects.create(notebook=self.object, title=name, image=drawing, id=first_ten_letters)
 
         return super(NotebookCreateView, self).form_valid(form)
 
