@@ -17,9 +17,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
+from django.conf.urls.static import static
 
 import drawings.urls
 import drawings.views
+
+import settings
 
 
 urlpatterns = [
@@ -27,7 +30,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(drawings.urls)),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 

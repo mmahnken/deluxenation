@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Deluxe Nation{% endblock %}
+
+
+{% block extra_head %}
+    <style>
+    .nb {
+        width: 6em;
+    }
+
+    .details {
+        color: lightgray;
+    }
+    </style>
+{% endblock %}
+
+
+{% block bootstrap3_content %}
+
+    {% load static from staticfiles %}
+
+    <div class="container">
+        <div class="row" >
+            <div class="container-fluid">
+        <div class="row">
+        {% for nb in notebooks %}
+
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                {% if nb.random_favorite %}
+                <a href="{% url 'notebook_detail' pk=nb.id %}">
+                    <img src="{{ nb.random_favorite.image.url }}" alt="An Image from {{ nb.title }}">
+                </a>
+                {% elif nb.drawing_set.all %}
+
+                    <a href="{% url 'notebook_detail' pk=nb.id %}">
+                    <img src="{{ nb.drawing_set.first.image.url }}" alt="An Image from {{ nb.title }}">
+                </a>
+                {% endif %}
+              <div class="caption">
+                <a href="{% url 'notebook_detail' pk=nb.id %}">
+                    <h3>{{ nb.title }}</h3>
+                </a>
+              </div>
+            </div>
+          </div>
+
+            {% if forloop.counter|divisibleby:3 %}
+                </div>
+                <div class="row">
+            {% endif %}
+
+        {% endfor %}
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block bootstrap3_extra_script %}
+{% endblock %}
+

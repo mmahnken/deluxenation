@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from django.views import generic
 
-from .models import Notebook, Drawing
 from .forms import NotebookCreateForm
+from .models import Notebook, Drawing, Group
+from .mixins import JSONResponseMixin
 
 
 # Create your views here.
@@ -16,8 +16,23 @@ class HomepageView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         """Add data."""
 
-        max_num = 5
         context = super(HomepageView, self).get_context_data()
+
+        context['drawings'] = Drawing.objects.all()[:40]
+
+        return context
+
+class NotebookIndexView(generic.TemplateView):
+    """Deluxe Nation homepage"""
+
+    template_name = "drawings/notebooks.html"
+
+
+    def get_context_data(self, **kwargs):
+        """Add data."""
+
+        max_num = 5
+        context = super(NotebookIndexView, self).get_context_data()
         context['notebooks'] = \
             (Notebook
              .objects
@@ -48,6 +63,7 @@ class NotebookCreateView(generic.CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
+
         drawings = form.files.getlist('drawings')
         if drawings:
             for drawing in drawings:
@@ -58,3 +74,14 @@ class NotebookCreateView(generic.CreateView):
 
         return super(NotebookCreateView, self).form_valid(form)
 
+class HybridListView(JSONResponseMixin, generic.ListView):
+    """A list of drawings in JSON"""
+
+    model = Group
+
+    def render_to_response(self, context):
+        # Look for a 'format=json' GET argument
+        if self.request.GET.get('format') == 'json':
+            return self.render_to_json_response(context)
+        else:
+            return super(HybridListView, self).render_to_response(context)

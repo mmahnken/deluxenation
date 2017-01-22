@@ -141,16 +141,17 @@ AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
 
 
 
-STATICFILES_LOCATION = 'static'
-STATICFILES_STORAGE = 'deluxenation.custom_storages.StaticStorage'
 
-MEDIAFILES_LOCATION = 'media'
-DEFAULT_FILE_STORAGE = 'deluxenation.custom_storages.MediaStorage'
 
 STATIC_ROOT = PROJECT_DIR + "/static/"
 MEDIA_ROOT = GIT_DIR + "/media/"
 
 if not os.environ.get('DEV'):
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_STORAGE = 'deluxenation.custom_storages.StaticStorage'
+
+    MEDIAFILES_LOCATION = 'media'
+    DEFAULT_FILE_STORAGE = 'deluxenation.custom_storages.MediaStorage'
     # This is used by the `static` template tag from `static`, if you're using that. Or if anything else
     # refers directly to STATIC_URL. So it's safest to always set it.
     STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
@@ -160,10 +161,13 @@ if not os.environ.get('DEV'):
     db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES['default'].update(db_from_env)
 else:
+    print "\nMedia in DEV mode\n"
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/1.10/howto/static-files/
+    # STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static")]
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
+
 
 
 

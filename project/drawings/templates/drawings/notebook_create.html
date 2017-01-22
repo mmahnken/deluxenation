@@ -5,8 +5,14 @@
 {% block title %}Upload Notebook{% endblock %}
 {% block extra_head %}
     <style>
-        .drawing{
-            width: 6em;
+        img {
+            max-height: 13em;
+            padding: 3px;
+
+        }
+
+        .group-checkbox {
+
         }
     </style>
 {% endblock %}
@@ -14,7 +20,7 @@
 {% block bootstrap3_content %}
     <div class="container">
     <h1>Upload a New Notebook</h1>
-           <form role="form" method="post" enctype="multipart/form-data">
+           <form role="form" method="post" enctype="multipart/form-data" id="notebook-create-form">
             {% csrf_token %}
             {% bootstrap_form form %}
                <label>Choose Folder</label><input type="file" webkitdirectory mozdirectory name="drawings" />

@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>drawings.views &#8212; deluxenation 1.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="top" title="deluxenation 1.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for drawings.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.views</span> <span class="k">import</span> <span class="n">generic</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">Notebook</span>
+
+<span class="c1"># Create your views here.</span>
+
+<div class="viewcode-block" id="HomepageView"><a class="viewcode-back" href="../../index.html#drawings.views.HomepageView">[docs]</a><span class="k">class</span> <span class="nc">HomepageView</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">TemplateView</span><span class="p">):</span>
+
+
+    <span class="sd">&quot;&quot;&quot;Deluxe Nation homepage&quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;drawings/homepage.html&quot;</span>
+    <span class="c1"># queryset = Cohort.published FIXME</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># def get_object(self, queryset=None):</span>
+    <span class="c1">#     &quot;&quot;&quot;Get cohort to show.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Optionally, a cohort id can be given in the URL---if so, that will be</span>
+    <span class="c1">#     the cohort shown. Otherwise, we&#39;ll use the one added by</span>
+    <span class="c1">#     `frodo.middleware.AddCohortMiddleware`.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     return self.get_cohort(self.kwargs.get(&#39;pk&#39;))</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+
+<div class="viewcode-block" id="HomepageView.get_context_data"><a class="viewcode-back" href="../../index.html#drawings.views.HomepageView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add data.&quot;&quot;&quot;</span>
+
+        <span class="n">max_num</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="c1">#</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">HomepageView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">()</span>
+        <span class="c1">#</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;notebooks&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="p">(</span><span class="n">Notebook</span>
+             <span class="o">.</span><span class="n">objects</span>
+             <span class="c1"># .select_related(&#39;drawing&#39;)</span>
+             <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-drawn_at&#39;</span><span class="p">)</span>
+             <span class="p">)[:</span><span class="n">max_num</span><span class="p">]</span>
+
+        <span class="c1"># # We want enough labsessions for 3 exercise sessions to show up---so we&#39;ll ask for</span>
+        <span class="c1"># # 3x as many lab sessions as we need here, and we filter this down to the 3 actual</span>
+        <span class="c1"># # exercisesessions in the template using |slice</span>
+        <span class="c1">#</span>
+        <span class="c1"># context[&#39;exercise_labsessions&#39;] = \</span>
+        <span class="c1">#     (ExerciseLabSession</span>
+        <span class="c1">#      .objects  # CORRECT: do not change to &#39;published&#39;; ELSs are not published</span>
+        <span class="c1">#      .filter(exercise_session__status=&#39;published&#39;,</span>
+        <span class="c1">#              exercise_session__cohort=self.object,</span>
+        <span class="c1">#              end_at__gt=now())</span>
+        <span class="c1">#      .select_related(&#39;exercise_session&#39;, &#39;exercise_session__exercise&#39;)</span>
+        <span class="c1">#      .order_by(&#39;start_at&#39;)</span>
+        <span class="c1">#      )[:max_num * 3]</span>
+        <span class="c1">#</span>
+        <span class="c1"># context[&#39;homeworksession&#39;] = \</span>
+        <span class="c1">#     (HomeworkSession</span>
+        <span class="c1">#      .published</span>
+        <span class="c1">#      .filter(cohort=self.object, end_at__gt=now())</span>
+        <span class="c1">#      .select_related(&#39;homework&#39;)</span>
+        <span class="c1">#      .order_by(&#39;start_at&#39;)</span>
+        <span class="c1">#      ).first()</span>
+        <span class="c1">#</span>
+        <span class="c1"># context[&#39;lightningtalks&#39;] = \</span>
+        <span class="c1">#     (LightningTalk</span>
+        <span class="c1">#      .objects  # CORRECT FOR NOW -- since we show the sched of not-yet-published talks</span>
+        <span class="c1">#      .filter(student__cohort=self.object,</span>
+        <span class="c1">#              end_at__gt=now(),</span>
+        <span class="c1">#              status=&#39;published&#39;)</span>
+        <span class="c1">#      .select_related(&#39;student&#39;)</span>
+        <span class="c1">#      .order_by(&#39;start_at&#39;)</span>
+        <span class="c1">#      )[:max_num]</span>
+        <span class="c1">#</span>
+        <span class="c1"># context[&#39;events&#39;] = \</span>
+        <span class="c1">#     (Event</span>
+        <span class="c1">#      .published</span>
+        <span class="c1">#      .filter(cohort=self.object, end_at__gt=now())</span>
+        <span class="c1">#      .order_by(&#39;start_at&#39;)</span>
+        <span class="c1">#      )[:max_num]</span>
+        <span class="c1">#</span>
+        <span class="c1"># context[&#39;announcements&#39;] = \</span>
+        <span class="c1">#     (Announcement</span>
+        <span class="c1">#      .published</span>
+        <span class="c1">#      .filter(cohort=self.object, start_at__lt=now(), end_at__gt=now())</span>
+        <span class="c1">#      .order_by(&#39;-start_at&#39;)</span>
+        <span class="c1">#      )</span>
+
+
+
+        <span class="k">return</span> <span class="n">context</span></div></div>
+
+
+<div class="viewcode-block" id="NotebookView"><a class="viewcode-back" href="../../index.html#drawings.views.NotebookView">[docs]</a><span class="k">class</span> <span class="nc">NotebookView</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">DetailView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Notebook plus all drawings of notebook&quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;drawings/notebook_detail.html&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Notebook</span><span class="o">.</span><span class="n">objects</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Meggie Mahnken.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

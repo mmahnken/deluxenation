@@ -9,7 +9,7 @@ class NotebookCreateForm(forms.ModelForm):
 
     def clean(self):
         """Clean form data"""
-        if not self.files.getlist('drawings'):
+        if not self.files:
             raise ValidationError("No drawings provided for notebook.")
         return super(NotebookCreateForm, self).clean()
 
