@@ -4,13 +4,17 @@ dirInput.addEventListener('change', function(e){
     for (const f of this.files){
         var reader = new FileReader();
         reader.onload = function (e) {
-            var drawingEl = makeDrawingInput(e.target.result, f);
-            imageContainer.append(drawingEl);
+            renderDrawing(e);
         }
         reader.readAsDataURL(f);
     }
     getGroupOptions();
 });
+
+function renderDrawing(e){
+    var drawingEl = makeDrawingInput(e.target.result, f);
+    imageContainer.append(drawingEl);
+}
 
 function makeDrawingInput(fileData, fileObj){
     var drawingContainer = document.createElement('div');

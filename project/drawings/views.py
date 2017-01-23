@@ -2,10 +2,8 @@ from django.views import generic
 
 from .forms import NotebookCreateForm
 from .models import Notebook, Drawing, Group
-from .mixins import JSONResponseMixin
+from .mixins import HybridListView
 
-
-# Create your views here.
 
 class HomepageView(generic.TemplateView):
     """Deluxe Nation homepage"""
@@ -22,7 +20,7 @@ class HomepageView(generic.TemplateView):
 
         return context
 
-class NotebookIndexView(generic.TemplateView):
+class NotebookListView(generic.TemplateView):  # refactor this into a hybrid list view?
     """Deluxe Nation homepage"""
 
     template_name = "drawings/notebooks.html"
@@ -41,6 +39,10 @@ class NotebookIndexView(generic.TemplateView):
              )[:max_num]
 
         return context
+
+class NotebookListJSONView(HybridListView):
+
+    model = Notebook
 
 
 class NotebookView(generic.DetailView):
@@ -74,14 +76,16 @@ class NotebookCreateView(generic.CreateView):
 
         return super(NotebookCreateView, self).form_valid(form)
 
-class HybridListView(JSONResponseMixin, generic.ListView):
-    """A list of drawings in JSON"""
+
+class GroupListView(HybridListView):
+    """A list of groups, rendered in HTML or JSON."""
 
     model = Group
+    template_name = "drawings/groups.html"
 
-    def render_to_response(self, context):
-        # Look for a 'format=json' GET argument
-        if self.request.GET.get('format') == 'json':
-            return self.render_to_json_response(context)
-        else:
-            return super(HybridListView, self).render_to_response(context)
+class BulkDrawingCreateView(generic.TemplateView):
+    """Show the page with all the Javascript for bulk adding drawings."""
+
+    template_name = "drawings/bulk-add.html"
+
+

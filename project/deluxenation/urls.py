@@ -27,6 +27,7 @@ import settings
 
 urlpatterns = [
     url(r'^admin/nb/$', staff_member_required(drawings.views.NotebookCreateView.as_view(template_name='drawings/notebook_create.html'))),
+    url(r'^admin/bulk-add/drawings/$', staff_member_required(drawings.views.BulkDrawingCreateView.as_view(template_name='drawings/bulk-add.html'))),
     url(r'^admin/', admin.site.urls),
     url(r'^', include(drawings.urls)),
 

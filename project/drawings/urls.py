@@ -23,7 +23,7 @@ url(r'^$',
     name='homepage'),
 
 url(r'^notebooks/$',
-    views.NotebookIndexView.as_view(),
+    views.NotebookListView.as_view(),
     name='notebooks'),
 
 url(r'^notebooks/%s/$' % PK,
@@ -31,8 +31,13 @@ url(r'^notebooks/%s/$' % PK,
     name='notebook_detail'),
 
 url(r'^groups/all/$',
-    views.HybridListView.as_view(),
+    views.GroupListView.as_view(),
     name='groups'),
+
+
+url(r'^nb/all/$',
+    views.NotebookListJSONView.as_view(),
+    name='notebooks'),
 
 ]
 

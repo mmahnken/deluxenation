@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block title %}Bulk Add Drawings{% endblock %}
+{% block extra_head %}
+    <style>
+        img {
+                max-height: 13em;
+                padding: 3px;
+
+            }
+    </style>
+{% endblock %}
+
+{% block bootstrap3_content %}
+<div class="container">
+    <div ng-app="bulkAdd" ng-controller="AddController" id="content">
+        <form>
+
+              <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <input type="file"
+                       id="exampleInputFile"
+                       webkitdirectory
+                       mozdirectory
+                       onchange="angular.element(this).scope().handleDirectoryChoice(this)">
+                <p class="help-block">Example block-level help text here.</p>
+              </div>
+
+
+
+                <div ng-repeat="d in drawings" class="form-group">
+
+                    <select ng-options="nb.pk as nb.pk for nb in notebooks" ng-model="notebook"></select>
+                    
+                    <div>
+                        <h3>{[{ d.fileObj.name }]}</h3>
+                        <img src="{[{ d.data }]}">
+                    </div>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block bootstrap3_extra_script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="{% static 'js/bulk-add.js' %}"></script>
+
+{% endblock %}

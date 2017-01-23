@@ -1,5 +1,7 @@
 from django.http import JsonResponse
 from django.core import serializers
+from django.views import generic
+
 
 class JSONResponseMixin(object):
     """
@@ -26,4 +28,15 @@ class JSONResponseMixin(object):
         data = serializers.serialize("json", context.get('object_list'))
 
         return {'data': data}
+
+
+class HybridListView(JSONResponseMixin, generic.ListView):
+    """A generic list view that can render in HTML or JSON."""
+
+    def render_to_response(self, context):
+        # Look for a 'format=json' GET argument
+        if self.request.GET.get('format') == 'json':
+            return self.render_to_json_response(context)
+        else:
+            return super(HybridListView, self).render_to_response(context)
 
