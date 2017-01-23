@@ -18,25 +18,31 @@
     <div ng-app="bulkAdd" ng-controller="AddController" id="content">
         <form>
 
-              <div class="form-group">
+              <div class="form-group row">
                 <label for="exampleInputFile">File input</label>
                 <input type="file"
                        id="exampleInputFile"
                        webkitdirectory
                        mozdirectory
                        onchange="angular.element(this).scope().handleDirectoryChoice(this)">
-                <p class="help-block">Example block-level help text here.</p>
+                <p class="help-block">Choose a directory.</p>
               </div>
 
 
 
-                <div ng-repeat="d in drawings" class="form-group">
-
-                    <select ng-options="nb.pk as nb.pk for nb in notebooks" ng-model="notebook"></select>
-                    
-                    <div>
+                <div ng-repeat="d in drawings" class="form-group row">
+                    <div class="col-xs-4">
                         <h3>{[{ d.fileObj.name }]}</h3>
                         <img src="{[{ d.data }]}">
+                    </div>
+                    <div class="col-xs-4">
+                        <select ng-options="nb.pk as nb.pk for nb in notebooks" ng-model="notebook"></select>
+                    </div>
+                    <div class="col-xs-4">
+                        <div ng-repeat="group in groups">
+                            <input type="checkbox" ng-model="group" name="{[{ group.pk }]}"> {[{ group.pk }]}
+                        </div>
+
                     </div>
                 </div>
 
