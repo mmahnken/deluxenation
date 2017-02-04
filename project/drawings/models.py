@@ -29,11 +29,13 @@ class Notebook(TimeStampedModel, models.Model):
     front_cover = models.ImageField(
         upload_to="notebooks",
         help_text="Image of notebook's front cover",
+        blank=True,
     )
 
     back_cover = models.ImageField(
         upload_to="notebooks",
         help_text="Image of notebook's back cover",
+        blank=True,
     )
 
     drawn_at = models.DateField(
@@ -41,6 +43,7 @@ class Notebook(TimeStampedModel, models.Model):
         help_text="The date (month, year) when the notebook was created. Both month and year required.",
         verbose_name="Notebook creation month and year"
     )
+
 
     def __str__(self):
         return self.title

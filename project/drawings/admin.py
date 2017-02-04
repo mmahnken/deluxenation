@@ -2,6 +2,7 @@ from django.contrib import admin
 import bulk_admin
 
 from .models import Notebook, Drawing, GroupDrawing, Group, ArtistInfo
+from .forms import NotebookAdminForm
 
 
 
@@ -60,9 +61,11 @@ class NotebookAdmin(admin.ModelAdmin):
         })
     ]
 
+    form = NotebookAdminForm
+
     search_fields = ["title", "description", "id"]
 
-    list_display = ['title']
+    list_display = ['title', 'drawn_at']
     list_display_links = ['title']
 
 

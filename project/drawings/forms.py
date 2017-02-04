@@ -20,3 +20,14 @@ class NotebookCreateForm(forms.ModelForm):
             'drawn_at': widgets.MonthYearWidget(years=xrange(1980,2050)),
 
         }
+
+class NotebookAdminForm(forms.ModelForm):
+    """A form for notebook admin."""
+
+    class Meta:
+        model = Notebook
+        fields = ['title', 'description', 'id', 'drawn_at']
+        widgets = {
+            'drawn_at': widgets.MonthYearWidget(years=xrange(1980,2050)),
+
+        }
