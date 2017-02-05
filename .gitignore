@@ -3,3 +3,5 @@ secrets.sh
 /.idea/
 *.pyc
 .boto
+media/
+
