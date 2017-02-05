@@ -1,4 +1,5 @@
 from django.views import generic
+from django.db.models.functions import ExtractYear
 
 from .forms import NotebookCreateForm
 from .models import Notebook, Drawing, Group
@@ -50,6 +51,21 @@ class NotebookView(generic.DetailView):
 
     template_name = "drawings/notebook_detail.html"
     queryset = Notebook.objects
+
+class NotebooksByYearView(generic.TemplateView):
+
+    template_name = "drawings/notebooks_by_year.html"
+
+    def get_context_data(self, **kwargs):
+        """Get notebooks grouped by drawn_at year."""
+
+        distinct_years = Notebook.objects.annotate(year=ExtractYear('drawn_at')).values('year').order_by('-year').distinct()
+
+        for y in distinct_years:
+            one_nb = Notebook.objects.filter(drawn_at__year=y['year'])[:1].get()
+            y['drawing_url'] = one_nb.random_favorite
+
+        return {'data': distinct_years}
 
 
 class NotebookCreateView(generic.CreateView):

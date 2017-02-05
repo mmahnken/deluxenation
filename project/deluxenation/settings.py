@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'drawings',
     'storages',
     'bulk_admin',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

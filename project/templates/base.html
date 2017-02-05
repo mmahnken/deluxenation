@@ -10,6 +10,7 @@
 {% block bootstrap3_extra_head %}
     {% load static from staticfiles %}
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/site.css' %}"/>
     {% block extra_head %}{% endblock %}
 {% endblock %}
 
@@ -17,6 +18,35 @@
 {% endblock %}
 
 {% block bootstrap3_content %}
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Deluxe Nation</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Artist Statement</a></li>
+        <li><a href="{% url 'notebooks' %}">Books</a></li>
+        <li><a href="{% url 'groups' %}">Drawings</a></li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    {% block content %}
+
+
+    {% endblock %}
 {% endblock bootstrap3_content %}
 
 
