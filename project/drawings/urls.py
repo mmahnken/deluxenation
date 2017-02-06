@@ -22,6 +22,10 @@ url(r'^$',
     views.HomepageView.as_view(),
     name='homepage'),
 
+url(r'^statement/$',
+    views.ArtistStatementView.as_view(),
+    name='about'),
+
 url(r'^years/$',
     views.NotebooksByYearView.as_view(),
     name='notebooks_by_year'),
@@ -31,7 +35,7 @@ url(r'^notebooks/$',
     name='notebooks'),
 
 url(r'^notebooks/%s/$' % PK,
-    views.NotebookView.as_view(),
+    views.NotebookDetailView.as_view(),
     name='notebook_detail'),
 
 url(r'^groups/all/$',
@@ -39,8 +43,12 @@ url(r'^groups/all/$',
     name='groups'),
 
 url(r'^nb/all/$',
-    views.NotebookListJSONView.as_view(),
+    views.NotebookListView.as_view(),
     name='notebooks'),
+
+url(r'^drawings/all/$',
+    views.DrawingListView.as_view(),
+    name='all_drawings'),
 
 ]
 
